@@ -23,6 +23,15 @@ rosSelf: rosSuper: with rosSelf.lib; {
     ];
   });
 
+ rplidar-ros = rosSuper.rplidar-ros.overrideAttrs ({
+    cmakeFlags ? [], ...
+  }: {
+    cmakeFlags = cmakeFlags ++ [
+      # tries to write to download 
+      "-DDEPTHAI_ENABLE_BACKWARD=OFF"
+    ];
+  });
+
   fastrtps = rosSuper.fastrtps.overrideAttrs ({
     cmakeFlags ? [], ...
   }: {
